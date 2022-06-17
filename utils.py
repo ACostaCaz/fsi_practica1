@@ -544,6 +544,22 @@ class FIFOQueue(Queue):
         return e
 
 
+class FifoBaB():
+
+    def __init__(self):
+        self.A = []
+
+    def append(self, item):
+        self.A.append(item)
+
+    def extend(self, items):
+        self.A.extend(items)
+        self.A.sort(key=lambda node: node.path_cost, reverse=True)
+
+    def pop(self):
+        return self.A.pop()
+
+
 
 ## Fig: The idea is we can define things like Fig[3,10] later.
 ## Alas, it is Fig[3,10] not Fig[3.10], because that would be the same as Fig[3.1]
