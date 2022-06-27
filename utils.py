@@ -1,6 +1,7 @@
 
 #______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
+import math
 
 infinity = 1.0e400
 
@@ -544,7 +545,7 @@ class FIFOQueue(Queue):
         return e
 
 
-class FifoBaB():
+class FifoBaB(Queue):
 
     def __init__(self):
         self.A = []
@@ -555,6 +556,22 @@ class FifoBaB():
     def extend(self, items):
         self.A.extend(items)
         self.A.sort(key=lambda node: node.path_cost, reverse=True)
+
+    def pop(self):
+        return self.A.pop()
+
+class FifoBaBsub(Queue):
+
+    def __init__(self, problem):
+        self.A = []
+        self.problem = problem
+
+    def append(self, item):
+        self.A.append(item)
+
+    def extend(self, items):
+        self.A.extend(items)
+        self.A.sort(key=lambda node: node.path_cost + self.problem.h(node), reverse=True)
 
     def pop(self):
         return self.A.pop()

@@ -99,16 +99,21 @@ def graph_search(problem, fringe):
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
     closed = {}
     fringe.append(Node(problem.initial))
-    nodes = 0
+    generatedNodes = 0
+    visitedNodes = 0
     while fringe:
         node = fringe.pop()
         if problem.goal_test(node.state):
-            print("Nodes generated: " + str(nodes))
+            print("Nodes visited: " + str(visitedNodes))
+            print("Nodes generated: " + str(generatedNodes))
             return node
         if node.state not in closed:
             closed[node.state] = True
-            fringe.extend(node.expand(problem))
-        nodes += 1
+            generated = node.expand(problem)
+            generatedNodes += len(generated)
+            fringe.extend(generated)
+
+        visitedNodes += 1
     return None
 
 
@@ -126,6 +131,8 @@ def branch_and_bound_graph_search(problem):
     """Este metodo ordena por el coste total acumulado"""
     return graph_search(problem, FifoBaB())
 
+def ryasub_graph_search(problem):
+    return graph_search(problem, FifoBaBsub(problem));
 
 # _____________________________________________________________________________
 # The remainder of this file implements examples for the search algorithms.
